@@ -11,6 +11,9 @@
     <Filter Include="Source\System">
       <UniqueIdentifier>{752b5f2c-ed75-4ba0-99a2-a08148cbc08d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\OpenGL">
+      <UniqueIdentifier>{240853e8-e31b-4f0d-9f0b-959bbde1032b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Source\Main.cpp">
@@ -35,6 +38,12 @@
     </ClInclude>
     <ClInclude Include="..\Source\System\Log.h">
       <Filter>Source\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\OpenGL\LoadShader.cpp">
+      <Filter>Source\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\OpenGL\LoadShader.h">
+      <Filter>Source\OpenGL</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

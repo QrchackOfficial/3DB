@@ -25,6 +25,8 @@
     <ClCompile Include="..\Source\System\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Source\OpenGL\LoadShader.cpp" />
+    <ClInclude Include="..\Source\OpenGL\LoadShader.h" />
     <ClInclude Include="..\Source\System\Application.h" />
     <ClInclude Include="..\Source\System\Log.h" />
     <ClInclude Include="..\Source\System\Window.h" />
