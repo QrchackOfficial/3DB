@@ -16,5 +16,7 @@ Application::Application() {
 
 
 Application::~Application() {
-	// TODO implement this
+	std::cout << "Application is terminating...\n";
+	SDL_Delay(1000);
+	SDL_Quit();
 }

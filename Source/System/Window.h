@@ -9,30 +9,23 @@ private:
 	int width = 800;
 	int height = 600;
 public:
-
-	int getX() const {
-		return x;
+	void setWindowSize(const int width, const int height) const {
+		SDL_SetWindowSize(window, width, height);
 	}
-	void setX(const int x) {
-		this->x = x;
-	}
-	int getY() const {
-		return y;
-	}
-	void setY(const int y) {
-		this->y = y;
+	void setWindowPosition(const int x, const int y) {
+		SDL_SetWindowPosition(window, x, y);
 	}
 	int getWidth() const {
 		return width;
 	}
-	void setWidth(const int width) {
-		this->width = width;
-	}
 	int getHeight() const {
 		return height;
 	}
-	void setHeight(const int height) {
-		this->height = height;
+	int getX() const {
+		return x;
+	}
+	int getY() const {
+		return y;
 	}
 	Window();
 	~Window();

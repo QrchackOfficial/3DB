@@ -14,5 +14,6 @@ Window::Window() {
 
 
 Window::~Window() {
-	// TODO implement this
+	std::cout << "Window is being destroyed\n";
+	SDL_DestroyWindow(window);
 }
