@@ -22,12 +22,18 @@
     <ClCompile Include="..\Source\System\Window.cpp">
       <Filter>Source\System</Filter>
     </ClCompile>
+    <ClCompile Include="..\Source\System\Log.cpp">
+      <Filter>Source\System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Source\System\Application.h">
       <Filter>Source\System</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\System\Window.h">
+      <Filter>Source\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\System\Log.h">
       <Filter>Source\System</Filter>
     </ClInclude>
   </ItemGroup>
