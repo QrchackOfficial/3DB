@@ -6,6 +6,16 @@
 #define GLEW_STATIC
 #include <GL/glew.h>
 
+void Window::redraw() {
+	static double timeLast = SDL_GetTicks();
+	double timeCurrent = SDL_GetTicks();
+	float timeDelta = float(timeCurrent - timeLast);
+
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	SDL_GL_SwapWindow(window);
+	timeLast = timeCurrent;
+}
+
 Window::Window() {
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
@@ -35,9 +45,6 @@ Window::Window() {
 	glDepthFunc(GL_LESS);
 	glEnable(GL_CULL_FACE);
 	glClearColor(1, 0, 0, 1);
-	glClear(GL_COLOR_BUFFER_BIT);
-
-	SDL_GL_SwapWindow(window);
 
 	std::cout << "Window created successfully at " << width << "x" << height << "\n";
 }

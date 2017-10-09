@@ -29,6 +29,7 @@ public:
 	int getY() const {
 		return y;
 	}
+	void redraw();
 	Window();
 	~Window();
 };
