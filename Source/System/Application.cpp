@@ -12,11 +12,11 @@ Application::Application() {
 	}
 	std::cout << "SDL initialized successfully\n";
 	Window w;
+	SDL_Delay(1000);
 }
 
 
 Application::~Application() {
 	std::cout << "Application is terminating...\n";
-	SDL_Delay(1000);
 	SDL_Quit();
 }
