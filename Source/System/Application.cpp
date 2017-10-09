@@ -18,9 +18,31 @@ Application::Application() {
 
 		// Handle events
 		while(SDL_PollEvent(&e)) {
-			if (e.type == SDL_QUIT)
-				kill();
-
+			switch(e.type) {
+				case SDL_QUIT:
+					kill();
+					break;
+				case SDL_KEYDOWN:
+					switch(e.key.keysym.sym) {
+						case SDLK_ESCAPE:
+							kill();
+							break;
+						case SDLK_1:
+							w.setBgColor(1.0, 0.0, 0.0);
+							break;
+						case SDLK_2:
+							w.setBgColor(0.0, 1.0, 0.0);
+							break;
+						case SDLK_3:
+							w.setBgColor(0.0, 0.0, 1.0);
+							break;
+						default:
+							break;
+					}
+					break;
+				default:
+					break;
+			}
 		}
 	}
 }
