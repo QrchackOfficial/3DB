@@ -7,15 +7,9 @@
 #include <GL/glew.h>
 
 void Window::redraw() {
-	static double timeLast = SDL_GetTicks();
-	double timeCurrent = SDL_GetTicks();
-	float timeDelta = float(timeCurrent - timeLast);
-
-
 	glClearColor(bgColor[0], bgColor[1], bgColor[2], 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	SDL_GL_SwapWindow(window);
-	timeLast = timeCurrent;
 }
 
 Window::Window() {
