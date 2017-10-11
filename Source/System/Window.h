@@ -1,5 +1,7 @@
 #pragma once
 #include <SDL_video.h>
+#define GLEW_STATIC
+#include <GL/glew.h>
 
 class Window {
 private:
@@ -10,6 +12,8 @@ private:
 	int y = SDL_WINDOWPOS_CENTERED;
 	int width = 800;
 	int height = 600;
+	GLuint VertexArrayID;
+	GLuint VertexBuffer;
 public:
 	static const int center = SDL_WINDOWPOS_CENTERED;
 	void setWindowSize(const int width, const int height) const {
