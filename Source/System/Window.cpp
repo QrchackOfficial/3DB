@@ -48,6 +48,7 @@ Window::Window() {
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
 	glEnable(GL_CULL_FACE);
+	glViewport(0, 0, width, height);
 
 	std::cout << "Window created successfully at " << width << "x" << height << "\n";
 }

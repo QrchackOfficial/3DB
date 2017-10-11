@@ -45,12 +45,13 @@ void Application::update(float dt) {
 }
 
 Application::Application() {
-	std::cout << "Application started\n";
+	l = new Log("debuglog.txt", true);
+	l->print("Application started");
 	if (SDL_Init(SDL_INIT_EVERYTHING)) {
 		std::cout << "SDL_Init error: " << SDL_GetError() << std::endl;
 		exit(EXIT_FAILURE);
 	}
-	std::cout << "SDL initialized successfully\n";
+	l->print("SDL initialized successfully");
 	w = new Window();
 
 	// Main loop
@@ -67,7 +68,8 @@ Application::Application() {
 
 
 Application::~Application() {
-	std::cout << "Application is terminating...\n";
+	l->print("Application is terminating...");
 	delete w;
+	delete l;
 	SDL_Quit();
 }
