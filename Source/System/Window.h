@@ -14,6 +14,7 @@ private:
 	int height = 600;
 	GLuint VertexArrayID;
 	GLuint VertexBuffer;
+	GLuint programID;
 public:
 	static const int center = SDL_WINDOWPOS_CENTERED;
 	void setWindowSize(const int width, const int height) const {

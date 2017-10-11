@@ -14,6 +14,9 @@
     <Filter Include="Source\OpenGL">
       <UniqueIdentifier>{240853e8-e31b-4f0d-9f0b-959bbde1032b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Shaders">
+      <UniqueIdentifier>{1970e40d-fae8-4b7d-8978-f6d685faef31}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Source\Main.cpp">
@@ -28,6 +31,9 @@
     <ClCompile Include="..\Source\System\Log.cpp">
       <Filter>Source\System</Filter>
     </ClCompile>
+    <ClCompile Include="..\Source\OpenGL\LoadShader.cpp">
+      <Filter>Source\OpenGL</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Source\System\Application.h">
@@ -39,11 +45,16 @@
     <ClInclude Include="..\Source\System\Log.h">
       <Filter>Source\System</Filter>
     </ClInclude>
-    <ClInclude Include="..\Source\OpenGL\LoadShader.cpp">
-      <Filter>Source\OpenGL</Filter>
-    </ClInclude>
     <ClInclude Include="..\Source\OpenGL\LoadShader.h">
       <Filter>Source\OpenGL</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Source\Shaders\FragmentShader.glsl">
+      <Filter>Source\Shaders</Filter>
+    </None>
+    <None Include="..\Source\Shaders\VertexShader.glsl">
+      <Filter>Source\Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

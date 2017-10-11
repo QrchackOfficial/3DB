@@ -5,12 +5,16 @@
 
 #define GLEW_STATIC
 #include <GL/glew.h>
+#include "../OpenGL/LoadShader.h"
 
 void Window::redraw() {
 
 	// Background
 	glClearColor(bgColor[0], bgColor[1], bgColor[2], 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	// Enable shaders
+	glUseProgram(programID);
 
 	// First attribute buffer - vertices
 	glEnableVertexAttribArray(0);
@@ -41,9 +45,9 @@ Window::Window() {
 	// Disable legacy OpenGL
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 
-	// Request an OpenGL 3.2 context
+	// Request an OpenGL 3.3 context
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
 
 	// Enable double buffering
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
@@ -67,6 +71,12 @@ Window::Window() {
 		std::cout << "Failed to initialize GLEW\n";
 		exit(EXIT_FAILURE);
 	}
+
+	// Load shaders
+	programID = LoadShader(
+		"..\\Source\\Shaders\\VertexShader.glsl",
+		"..\\Source\\Shaders\\FragmentShader.glsl"
+	);
 
 	// OpenGL setup
 	glEnable(GL_DEPTH_TEST);
