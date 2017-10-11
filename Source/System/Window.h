@@ -8,15 +8,22 @@ class Window {
 private:
 	SDL_Window* window = nullptr;
 	SDL_GLContext context = nullptr;
-	float bgColor[3] = {0.0f, 0.0f, 0.0f};
+	float bgColor[3] = {0.0f, 0.0f, 0.2f};
+
+	// Window settings
 	int x = SDL_WINDOWPOS_CENTERED;
 	int y = SDL_WINDOWPOS_CENTERED;
 	int width = 800;
 	int height = 600;
+
 	GLuint VertexArrayID;
+
 	GLuint VertexBuffer;
+	GLuint ColorBuffer;
+
 	GLuint programID;
 	GLuint MatrixID;
+
 	glm::mat4 Model = glm::mat4(1.0f);
 	glm::mat4 View;
 	glm::mat4 Projection;
