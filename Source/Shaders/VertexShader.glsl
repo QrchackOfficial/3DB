@@ -2,8 +2,9 @@
 
 layout(location = 0) in vec3 vData;
 
+uniform mat4 MVP;
+
 void main() {
-	// pass vertex data
-	gl_Position.xyz = vData;
-	gl_Position.w = 1.0;
+	// Transform vertex data
+	gl_Position = MVP * vec4(vData, 1);
 }

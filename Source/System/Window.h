@@ -2,6 +2,7 @@
 #include <SDL_video.h>
 #define GLEW_STATIC
 #include <GL/glew.h>
+#include <glm/mat4x4.hpp>
 
 class Window {
 private:
@@ -15,8 +16,15 @@ private:
 	GLuint VertexArrayID;
 	GLuint VertexBuffer;
 	GLuint programID;
+	GLuint MatrixID;
+	glm::mat4 Model = glm::mat4(1.0f);
+	glm::mat4 View;
+	glm::mat4 Projection;
+	glm::mat4 MVP;
+
 public:
 	static const int center = SDL_WINDOWPOS_CENTERED;
+
 	void setWindowSize(const int width, const int height) const {
 		SDL_SetWindowSize(window, width, height);
 	}

@@ -16,13 +16,13 @@ void Application::handleEvents() {
 				kill();
 				break;
 			case SDLK_1:
-				w->setBgColor(1.0, 0.0, 0.0);
+				// w->setBgColor(1.0, 0.0, 0.0);
 				break;
 			case SDLK_2:
-				w->setBgColor(0.0, 1.0, 0.0);
+				// w->setBgColor(0.0, 1.0, 0.0);
 				break;
 			case SDLK_3:
-				w->setBgColor(0.0, 0.0, 1.0);
+				// w->setBgColor(0.0, 0.0, 1.0);
 				break;
 			default:
 				break;
