@@ -8,7 +8,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtx/transform.hpp>
 
-#include "../OpenGL/LoadShader.h"
+#include "../OpenGL/LoadShader.hpp"
 
 void Window::redraw() {
 	using glm::vec3;
