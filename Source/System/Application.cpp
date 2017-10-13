@@ -1,28 +1,29 @@
 #include "Application.h"
+#include "Window.h"
+
 #include <iostream>
 #include <SDL.h>
-#include "Window.h"
 
 
 void Application::handleEvents() {
-	while (SDL_PollEvent(&e)) {
-		switch (e.type) {
+	while (SDL_PollEvent(&eventPending)) {
+		switch (eventPending.type) {
 		case SDL_QUIT:
 			kill();
 			break;
 		case SDL_KEYDOWN:
-			switch (e.key.keysym.sym) {
+			switch (eventPending.key.keysym.sym) {
 			case SDLK_ESCAPE:
 				kill();
 				break;
 			case SDLK_1:
-				w->setBgColor(0.2, 0.0, 0.0);
+				w->setBgColor(0.2f, 0.0f, 0.0f);
 				break;
 			case SDLK_2:
-				w->setBgColor(0.0, 0.2, 0.0);
+				w->setBgColor(0.0f, 0.2f, 0.0f);
 				break;
 			case SDLK_3:
-				w->setBgColor(0.0, 0.0, 0.2);
+				w->setBgColor(0.0f, 0.0f, 0.2f);
 				break;
 			default:
 				break;
@@ -45,13 +46,13 @@ void Application::update(float dt) {
 }
 
 Application::Application() {
-	l = new Log("debuglog.txt", true);
-	l->print("Application started");
+	log = new Log("debuglog.txt", true);
+	log->print("Application started");
 	if (SDL_Init(SDL_INIT_EVERYTHING)) {
 		std::cout << "SDL_Init error: " << SDL_GetError() << std::endl;
 		exit(EXIT_FAILURE);
 	}
-	l->print("SDL initialized successfully");
+	log->print("SDL initialized successfully");
 	w = new Window();
 
 	// Main loop
@@ -68,8 +69,8 @@ Application::Application() {
 
 
 Application::~Application() {
-	l->print("Application is terminating...");
+	log->print("Application is terminating...");
 	delete w;
-	delete l;
+	delete log;
 	SDL_Quit();
 }

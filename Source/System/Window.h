@@ -56,6 +56,7 @@ public:
 		return y;
 	}
 	void redraw();
+	float getRandom();
 	Window();
 	~Window();
 };

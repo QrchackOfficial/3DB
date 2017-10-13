@@ -8,23 +8,26 @@
 
 #include <GL/glew.h>
 
-GLuint LoadShader(const char* vertex_file_path, const char* fragment_file_path) {
+GLuint loadShader(const char* vertex_file_path, const char* fragment_file_path) {
+	using std::string;
+	using std::ifstream;
+	using std::cout;
 
 	// Create the shaders
 	GLuint VertexShaderID = glCreateShader(GL_VERTEX_SHADER);
 	GLuint FragmentShaderID = glCreateShader(GL_FRAGMENT_SHADER);
 
 	// Read the Vertex Shader code from the file
-	std::string VertexShaderCode;
-	std::ifstream VertexShaderStream(vertex_file_path, std::ios::in);
+	string VertexShaderCode;
+	ifstream VertexShaderStream(vertex_file_path, std::ios::in);
 	if (VertexShaderStream.is_open()) {
-		std::string Line = "";
+		string Line = "";
 		while (getline(VertexShaderStream, Line))
 			VertexShaderCode += "\n" + Line;
 		VertexShaderStream.close();
 	}
 	else {
-		std::cout << "Impossible to open "
+		cout << "Impossible to open "
 			<< vertex_file_path
 			<< ", are you in the right directory?\n";
 		getchar();
@@ -32,65 +35,65 @@ GLuint LoadShader(const char* vertex_file_path, const char* fragment_file_path) 
 	}
 
 	// Read the Fragment Shader code from the file
-	std::string FragmentShaderCode;
-	std::ifstream FragmentShaderStream(fragment_file_path, std::ios::in);
+	string FragmentShaderCode;
+	ifstream FragmentShaderStream(fragment_file_path, std::ios::in);
 	if (FragmentShaderStream.is_open()) {
-		std::string Line = "";
+		string Line = "";
 		while (getline(FragmentShaderStream, Line))
 			FragmentShaderCode += "\n" + Line;
 		FragmentShaderStream.close();
 	}
 
-	GLint Result = GL_FALSE;
+	GLint result = false;
 	int InfoLogLength;
 
 
 	// Compile Vertex Shader
-	std::cout << "Compiling shader: " << vertex_file_path << std::endl;
+	cout << "Compiling shader: " << vertex_file_path << std::endl;
 	char const* VertexSourcePointer = VertexShaderCode.c_str();
 	glShaderSource(VertexShaderID, 1, &VertexSourcePointer, NULL);
 	glCompileShader(VertexShaderID);
 
 	// Check Vertex Shader
-	glGetShaderiv(VertexShaderID, GL_COMPILE_STATUS, &Result);
+	glGetShaderiv(VertexShaderID, GL_COMPILE_STATUS, &result);
 	glGetShaderiv(VertexShaderID, GL_INFO_LOG_LENGTH, &InfoLogLength);
 	if (InfoLogLength > 0) {
 		std::vector<char> VertexShaderErrorMessage(InfoLogLength + 1);
 		glGetShaderInfoLog(VertexShaderID, InfoLogLength, NULL, &VertexShaderErrorMessage[0]);
-		std::cout << &VertexShaderErrorMessage[0] << std::endl;
+		cout << &VertexShaderErrorMessage[0] << std::endl;
 	}
 
 
 	// Compile Fragment Shader
-	std::cout << "Compiling shader: " << fragment_file_path << std::endl;
+	cout << "Compiling shader: " << fragment_file_path << std::endl;
 	char const* FragmentSourcePointer = FragmentShaderCode.c_str();
 	glShaderSource(FragmentShaderID, 1, &FragmentSourcePointer, NULL);
 	glCompileShader(FragmentShaderID);
 
 	// Check Fragment Shader
-	glGetShaderiv(FragmentShaderID, GL_COMPILE_STATUS, &Result);
+	glGetShaderiv(FragmentShaderID, GL_COMPILE_STATUS, &result);
 	glGetShaderiv(FragmentShaderID, GL_INFO_LOG_LENGTH, &InfoLogLength);
 	if (InfoLogLength > 0) {
 		std::vector<char> FragmentShaderErrorMessage(InfoLogLength + 1);
 		glGetShaderInfoLog(FragmentShaderID, InfoLogLength, NULL, &FragmentShaderErrorMessage[0]);
-		std::cout << &FragmentShaderErrorMessage[0] << std::endl;
+		cout << &FragmentShaderErrorMessage[0] << std::endl;
 	}
 
 
 	// Link the program
-	std::cout << "Linking program\n";
+	cout << "Linking program\n";
 	GLuint ProgramID = glCreateProgram();
 	glAttachShader(ProgramID, VertexShaderID);
 	glAttachShader(ProgramID, FragmentShaderID);
 	glLinkProgram(ProgramID);
 
 	// Check the program
-	glGetProgramiv(ProgramID, GL_LINK_STATUS, &Result);
+	glGetProgramiv(ProgramID, GL_LINK_STATUS, &result);
 	glGetProgramiv(ProgramID, GL_INFO_LOG_LENGTH, &InfoLogLength);
 	if (InfoLogLength > 0) {
 		std::vector<char> ProgramErrorMessage(InfoLogLength + 1);
 		glGetProgramInfoLog(ProgramID, InfoLogLength, NULL, &ProgramErrorMessage[0]);
-		std::cout << &ProgramErrorMessage[0] << std::endl;
+		cout << &ProgramErrorMessage[0] << std::endl;
 	}
 
 

@@ -7,8 +7,8 @@ class Application {
 private:
 	bool running = true;
 	Window* w;
-	SDL_Event e;
-	Log* l;
+	SDL_Event eventPending;
+	Log* log;
 public:
 	void kill() {
 		running = false;
