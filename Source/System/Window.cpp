@@ -13,6 +13,9 @@
 #include <ctime>
 #include "Loaders/LoadBMP.hpp"
 
+#include <Windows.h>
+#include <string>
+
 void Window::redraw(float dt) {
 	using glm::vec3;
 
@@ -29,8 +32,15 @@ void Window::redraw(float dt) {
 		SDL_WarpMouseInWindow(window, width / 2, height / 2);
 
 		// Compute new orientations
-		hAngle += mouseSpeed * dt * float(width / 2 - mouseX);
-		vAngle += mouseSpeed * dt * float(height / 2 - mouseY);
+		hAngleN = hAngle + mouseSpeed * dt * float(width / 2 - mouseX);
+		vAngleN = vAngle + mouseSpeed * dt * float(height / 2 - mouseY);
+
+		//sprintf(debugOut, "vAngle = %.2f\n", vAngle);
+		//OutputDebugString(debugOut);
+
+		if (vAngleN >= vAngleMin && vAngleN <= vAngleMax) {
+			vAngle = vAngleN;
+		}
 	}
 
 	direction = vec3(

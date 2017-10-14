@@ -39,6 +39,10 @@ private:
 
 	float hAngle = 3.14f;
 	float vAngle = 0.0f;
+	float hAngleN;
+	float vAngleN;
+	float vAngleMax = 3.14f / 8;
+	float vAngleMin = -vAngleMax;
 	float FoV = 45.0f;
 	float cameraSpeed = 0.1f;
 	float mouseSpeed = 0.0005f;
@@ -48,7 +52,6 @@ private:
 	SDL_GLContext getContext();
 	SDL_Window* Window::createWindow(char* title, int width, int height);
 	void resetSeed();
-
 public:
 	// Right vector
 	glm::vec3 right = glm::vec3(
@@ -58,6 +61,7 @@ public:
 	);
 	bool isActive = true;
 	static const int center = SDL_WINDOWPOS_CENTERED;
+	char debugOut[80];
 
 	void setWindowSize(const int width, const int height) const {
 		SDL_SetWindowSize(window, width, height);
@@ -106,21 +110,27 @@ public:
 	float getMouseSpeed() const {
 		return mouseSpeed;
 	}
+
 	void setCameraPosition(const glm::vec3& camera_position) {
 		cameraPosition = camera_position;
 	}
+
 	void setFoV(float fov) {
 		FoV = fov;
 	}
+
 	void setCameraSpeed(float speed) {
 		cameraSpeed = speed;
 	}
+
 	void setMouseSpeed(float speed) {
 		mouseSpeed = speed;
 	}
+
 	glm::vec3 getDirection() const {
 		return direction;
 	}
+
 	float getRandom();
 	Window();
 	~Window();
