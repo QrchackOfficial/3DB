@@ -1,9 +1,12 @@
 #version 330 core
 
-in vec3 vColor;
+in vec2 UV;
+
 out vec3 oColor;
+
+uniform sampler2D inTexture;
 
 void main() {
 	// Forward buffered data
-	oColor = vColor;
+	oColor = texture(inTexture, UV).rgb;
 }

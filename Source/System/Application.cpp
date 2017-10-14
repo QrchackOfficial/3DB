@@ -5,7 +5,28 @@
 #include <SDL.h>
 
 
-void Application::handleEvents() {
+void Application::handleEvents(float dt) {
+	auto keyState = SDL_GetKeyboardState(nullptr);
+	if (keyState[SDL_SCANCODE_W]) {
+		w->setCameraPosition(
+			w->getCameraPosition() + (w->getDirection() * dt * w->getCameraSpeed())
+		);
+	}
+	else if (keyState[SDL_SCANCODE_S]) {
+		w->setCameraPosition(
+			w->getCameraPosition() - (w->getDirection() * dt * w->getCameraSpeed())
+		);
+	}
+	else if (keyState[SDL_SCANCODE_A]) {
+		w->setCameraPosition(
+			w->getCameraPosition() - (w->right * dt * w->getCameraSpeed())
+		);
+	}
+	else if (keyState[SDL_SCANCODE_D]) {
+		w->setCameraPosition(
+			w->getCameraPosition() + (w->right * dt * w->getCameraSpeed())
+		);
+	}
 	while (SDL_PollEvent(&eventPending)) {
 		switch (eventPending.type) {
 		case SDL_QUIT:
@@ -29,20 +50,37 @@ void Application::handleEvents() {
 				break;
 			}
 			break;
-		default:
-			break;
+		case SDL_WINDOWEVENT:
+			switch (eventPending.window.event) {
+			case SDL_WINDOWEVENT_FOCUS_LOST:
+				SDL_ShowCursor(true);
+				w->isActive = false;
+				break;
+			case SDL_WINDOWEVENT_FOCUS_GAINED:
+				SDL_ShowCursor(false);
+				SDL_WarpMouseInWindow(
+					w->getWindow(),
+					w->getWidth() / 2,
+					w->getHeight() / 2
+				);
+				w->isActive = true;
+				break;
+			default: break;
+			}
+
+		default: break;
 		}
 	}
 }
 
 
-void Application::drawFrame() const {
-	w->redraw();
+void Application::drawFrame(float dt) const {
+	w->redraw(dt);
 }
 
 void Application::update(float dt) {
-	drawFrame();
-	handleEvents();
+	drawFrame(dt);
+	handleEvents(dt);
 }
 
 Application::Application() {

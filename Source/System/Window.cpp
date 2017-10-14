@@ -11,28 +11,55 @@
 
 #include "../OpenGL/LoadShader.hpp"
 #include <ctime>
+#include "Loaders/LoadBMP.hpp"
 
-void Window::redraw() {
+void Window::redraw(float dt) {
 	using glm::vec3;
 
 	// Background color
 	glClearColor(bgColor[0], bgColor[1], bgColor[2], 0.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	// Compute model transform
-	View = glm::lookAt(
-		vec3(4, 3, 3), // Camera position
-		vec3(0, 0, 0), // Look up at the origin
-		vec3(0, 1, 0) // Head is up
+	// Enable shaders
+	glUseProgram(programID);
+
+	if (isActive) {
+		// Get mouse position
+		SDL_GetMouseState(&mouseX, &mouseY);
+		SDL_WarpMouseInWindow(window, width / 2, height / 2);
+
+		// Compute new orientations
+		hAngle += mouseSpeed * dt * float(width / 2 - mouseX);
+		vAngle += mouseSpeed * dt * float(height / 2 - mouseY);
+	}
+
+	direction = vec3(
+		cos(vAngle) * sin(hAngle),
+		sin(vAngle),
+		cos(vAngle) * cos(hAngle)
 	);
+
+	// Up vector
+	up = cross(right, direction);
 
 	// Compute and send transformation matrix
 	// to the vertex shader
+	Projection = glm::perspective(
+		glm::radians(FoV),
+		float(width) / float(height), // Aspect ratio
+		0.1f, 100.f // 0.1u - 100u
+	);
+	View = glm::lookAt(
+		cameraPosition, // Camera position
+		cameraPosition + direction, // Look up at the origin
+		up // Head is up
+	);
 	MVP = Projection * View * Model;
 	glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);
 
-	// Enable shaders
-	glUseProgram(programID);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, Texture);
+	glUniform1i(TextureID, 0);
 
 	// First attribute buffer - vertices
 	glEnableVertexAttribArray(0);
@@ -48,10 +75,10 @@ void Window::redraw() {
 	);
 
 	glEnableVertexAttribArray(1);
-	glBindBuffer(GL_ARRAY_BUFFER, ColorBuffer);
+	glBindBuffer(GL_ARRAY_BUFFER, UVBuffer);
 	glVertexAttribPointer(
 		1,
-		3,
+		2,
 		GL_FLOAT,
 		GL_FALSE,
 		0,
@@ -64,6 +91,7 @@ void Window::redraw() {
 
 	// Cleanup
 	glDisableVertexAttribArray(0);
+	glDisableVertexAttribArray(1);
 
 	// Swap buffer
 	SDL_GL_SwapWindow(window);
@@ -98,6 +126,9 @@ SDL_GLContext Window::getContext() {
 	glEnable(GL_DEPTH_TEST);
 	// Accept elements that are closer than the previous ones
 	glDepthFunc(GL_LESS);
+
+	// Enable face culling
+	// (don't draw polygons inside the cube)
 	glEnable(GL_CULL_FACE);
 	glViewport(0, 0, width, height);
 
@@ -142,20 +173,12 @@ Window::Window() {
 	glGenVertexArrays(1, &VertexArrayID);
 	glBindVertexArray(VertexArrayID);
 
-	// Matrices for model
-	Projection = glm::perspective(
-		glm::radians(45.0f), // FoV
-		float(width) / float(height), // Aspect ratio
-		0.1f, 100.f // 0.1u - 100u
-	);
-
+	Texture = loadBMP("texture.bmp");
+	TextureID = glGetUniformLocation(programID, "inTexture");
 
 	// Generate and select vertex buffer
 	glGenBuffers(1, &VertexBuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, VertexBuffer);
-
-	int vds = mCube.getVertexDataSize();
-	int cds = mCube.getColorDataSize();
 
 	// Send vertex data
 	glBufferData(
@@ -165,17 +188,20 @@ Window::Window() {
 		GL_STATIC_DRAW
 	);
 
-	// Generate and select color buffer
-	glGenBuffers(1, &ColorBuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, ColorBuffer);
+	// Generate and select UV buffer
+	glGenBuffers(1, &UVBuffer);
+	glBindBuffer(GL_ARRAY_BUFFER, UVBuffer);
 
-	// Send color data
+	// Send UV data
 	glBufferData(
 		GL_ARRAY_BUFFER,
-		mCube.getColorDataSize(),
-		mCube.getColorData(),
+		mCube.getUVDataSize(),
+		mCube.getUVData(),
 		GL_STATIC_DRAW
 	);
+
+	// Hide cursor
+	SDL_ShowCursor(false);
 
 	std::cout << "Window created successfully at " << width << "x" << height << "\n";
 }

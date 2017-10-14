@@ -14,8 +14,8 @@ public:
 		running = false;
 	}
 
-	void handleEvents();
-	void drawFrame() const;
+	void handleEvents(float dt);
+	void drawFrame(float dt) const;
 	void update(float dt);
 	Application();
 	~Application();

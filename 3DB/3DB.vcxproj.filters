@@ -17,6 +17,9 @@
     <Filter Include="Source\Shaders">
       <UniqueIdentifier>{1970e40d-fae8-4b7d-8978-f6d685faef31}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\System\Loaders">
+      <UniqueIdentifier>{af75de2f-d359-43b0-9438-be8b5bad2f28}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Source\Main.cpp">
@@ -37,6 +40,9 @@
     <ClCompile Include="..\Source\OpenGL\Model.cpp">
       <Filter>Source\OpenGL</Filter>
     </ClCompile>
+    <ClCompile Include="..\Source\System\Loaders\LoadBMP.cpp">
+      <Filter>Source\System\Loaders</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Source\System\Application.h">
@@ -48,10 +54,13 @@
     <ClInclude Include="..\Source\System\Log.h">
       <Filter>Source\System</Filter>
     </ClInclude>
-    <ClInclude Include="..\Source\OpenGL\LoadShader.h">
+    <ClInclude Include="..\Source\OpenGL\Model.hpp">
       <Filter>Source\OpenGL</Filter>
     </ClInclude>
-    <ClInclude Include="..\Source\OpenGL\Model.hpp">
+    <ClInclude Include="..\Source\System\Loaders\LoadBMP.hpp">
+      <Filter>Source\System\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\OpenGL\LoadShader.hpp">
       <Filter>Source\OpenGL</Filter>
     </ClInclude>
   </ItemGroup>
