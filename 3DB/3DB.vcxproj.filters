@@ -34,6 +34,9 @@
     <ClCompile Include="..\Source\OpenGL\LoadShader.cpp">
       <Filter>Source\OpenGL</Filter>
     </ClCompile>
+    <ClCompile Include="..\Source\OpenGL\Model.cpp">
+      <Filter>Source\OpenGL</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Source\System\Application.h">
@@ -46,6 +49,9 @@
       <Filter>Source\System</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\OpenGL\LoadShader.h">
+      <Filter>Source\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\OpenGL\Model.hpp">
       <Filter>Source\OpenGL</Filter>
     </ClInclude>
   </ItemGroup>

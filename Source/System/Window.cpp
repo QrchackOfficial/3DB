@@ -1,4 +1,5 @@
 #include "Window.h"
+#include "../OpenGL/Model.hpp"
 
 #include <SDL.h>
 #include <iostream>
@@ -68,14 +69,7 @@ void Window::redraw() {
 	SDL_GL_SwapWindow(window);
 }
 
-/**
- * \return A random float value in the 0.0-1.0 range
- */
-float Window::getRandom() {
-	return float(rand()) / float(RAND_MAX);
-}
-
-Window::Window() {
+void Window::setupOpenGL() {
 	// Disable legacy OpenGL
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 
@@ -85,16 +79,10 @@ Window::Window() {
 
 	// Enable double buffering
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+}
 
-	window = SDL_CreateWindow("", x, y, width, height, SDL_WINDOW_OPENGL);
-	if (!window) {
-		std::cout << "SDL_CreateWindow error: " << SDL_GetError() << std::endl;
-		SDL_Quit();
-		exit(EXIT_FAILURE);
-	}
-
-	// Get OpenGL context
-	context = SDL_GL_CreateContext(window);
+SDL_GLContext Window::getContext() {
+	SDL_GLContext ctx = SDL_GL_CreateContext(window);
 
 	// Enable v-sync
 	SDL_GL_SetSwapInterval(1);
@@ -106,17 +94,6 @@ Window::Window() {
 		exit(EXIT_FAILURE);
 	}
 
-	// Load shaders
-	programID = loadShader(
-		"..\\Source\\Shaders\\VertexShader.glsl",
-		"..\\Source\\Shaders\\FragmentShader.glsl"
-	);
-
-	// Get a handle for MVP uniform
-	MatrixID = glGetUniformLocation(programID, "MVP");
-
-	// OpenGL setup
-
 	// Enable depth test
 	glEnable(GL_DEPTH_TEST);
 	// Accept elements that are closer than the previous ones
@@ -124,58 +101,42 @@ Window::Window() {
 	glEnable(GL_CULL_FACE);
 	glViewport(0, 0, width, height);
 
+	return ctx;
+}
 
-	// Static model data
-	static const GLfloat gVertexData[] = {
-		-1.0f,-1.0f,-1.0f,
-		-1.0f,-1.0f, 1.0f,
-		-1.0f, 1.0f, 1.0f,
-		1.0f, 1.0f,-1.0f,
-		-1.0f,-1.0f,-1.0f,
-		-1.0f, 1.0f,-1.0f,
-		1.0f,-1.0f, 1.0f,
-		-1.0f,-1.0f,-1.0f,
-		1.0f,-1.0f,-1.0f,
-		1.0f, 1.0f,-1.0f,
-		1.0f,-1.0f,-1.0f,
-		-1.0f,-1.0f,-1.0f,
-		-1.0f,-1.0f,-1.0f,
-		-1.0f, 1.0f, 1.0f,
-		-1.0f, 1.0f,-1.0f,
-		1.0f,-1.0f, 1.0f,
-		-1.0f,-1.0f, 1.0f,
-		-1.0f,-1.0f,-1.0f,
-		-1.0f, 1.0f, 1.0f,
-		-1.0f,-1.0f, 1.0f,
-		1.0f,-1.0f, 1.0f,
-		1.0f, 1.0f, 1.0f,
-		1.0f,-1.0f,-1.0f,
-		1.0f, 1.0f,-1.0f,
-		1.0f,-1.0f,-1.0f,
-		1.0f, 1.0f, 1.0f,
-		1.0f,-1.0f, 1.0f,
-		1.0f, 1.0f, 1.0f,
-		1.0f, 1.0f,-1.0f,
-		-1.0f, 1.0f,-1.0f,
-		1.0f, 1.0f, 1.0f,
-		-1.0f, 1.0f,-1.0f,
-		-1.0f, 1.0f, 1.0f,
-		1.0f, 1.0f, 1.0f,
-		-1.0f, 1.0f, 1.0f,
-		1.0f,-1.0f, 1.0f
-	};
+SDL_Window* Window::createWindow(char* title, int width, int height) {
+	SDL_Window* w = SDL_CreateWindow("", x, y, width, height, SDL_WINDOW_OPENGL);
+	if (!w) {
+		std::cout << "SDL_CreateWindow error: " << SDL_GetError() << std::endl;
+		SDL_Quit();
+		exit(EXIT_FAILURE);
+	}
+	return w;
+}
 
+void Window::resetSeed() {
 	// Seed random generator
 	const unsigned int seed = static_cast<unsigned int>(time(nullptr));
 	srand(seed);
+}
 
-	// Generate colors
-	static GLfloat gColorData[12 * 3 * 3];
-	for (int v = 0; v < 12 * 3; v++) {
-		gColorData[3 * v + 0] = getRandom();
-		gColorData[3 * v + 1] = getRandom();
-		gColorData[3 * v + 2] = getRandom();
-	}
+Window::Window() {
+	using ::Model;
+
+	resetSeed();
+	setupOpenGL();
+	window = createWindow("", width, height);
+	ctx = getContext();
+
+	programID = loadShader(
+		"..\\Source\\Shaders\\VertexShader.glsl",
+		"..\\Source\\Shaders\\FragmentShader.glsl"
+	);
+
+	Model mCube{};
+
+	// Get a handle for MVP uniform
+	MatrixID = glGetUniformLocation(programID, "MVP");
 
 	// Generate and select vertex array
 	glGenVertexArrays(1, &VertexArrayID);
@@ -193,11 +154,14 @@ Window::Window() {
 	glGenBuffers(1, &VertexBuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, VertexBuffer);
 
+	int vds = mCube.getVertexDataSize();
+	int cds = mCube.getColorDataSize();
+
 	// Send vertex data
 	glBufferData(
 		GL_ARRAY_BUFFER,
-		sizeof(gVertexData),
-		gVertexData,
+		mCube.getVertexDataSize(),
+		mCube.getVertexData(),
 		GL_STATIC_DRAW
 	);
 
@@ -208,8 +172,8 @@ Window::Window() {
 	// Send color data
 	glBufferData(
 		GL_ARRAY_BUFFER,
-		sizeof(gColorData),
-		gColorData,
+		mCube.getColorDataSize(),
+		mCube.getColorData(),
 		GL_STATIC_DRAW
 	);
 
@@ -219,6 +183,6 @@ Window::Window() {
 
 Window::~Window() {
 	std::cout << "Window is being destroyed\n";
-	SDL_GL_DeleteContext(context);
+	SDL_GL_DeleteContext(ctx);
 	SDL_DestroyWindow(window);
 }

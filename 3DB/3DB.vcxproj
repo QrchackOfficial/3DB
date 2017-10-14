@@ -21,12 +21,14 @@
   <ItemGroup>
     <ClCompile Include="..\Source\Main.cpp" />
     <ClCompile Include="..\Source\OpenGL\LoadShader.cpp" />
+    <ClCompile Include="..\Source\OpenGL\Model.cpp" />
     <ClCompile Include="..\Source\System\Application.cpp" />
     <ClCompile Include="..\Source\System\Log.cpp" />
     <ClCompile Include="..\Source\System\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Source\OpenGL\LoadShader.h" />
+    <ClInclude Include="..\Source\OpenGL\Model.hpp" />
     <ClInclude Include="..\Source\System\Application.h" />
     <ClInclude Include="..\Source\System\Log.h" />
     <ClInclude Include="..\Source\System\Window.h" />
@@ -98,6 +100,7 @@
       <AdditionalLibraryDirectories>$(SolutionDir)\Dependencies\SDL2-2.0.6\lib\x86\;$(SolutionDir)Dependencies\glew-2.1.0\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;OpenGL32.lib;glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Windows</SubSystem>
+      <IgnoreSpecificDefaultLibraries>libcmt</IgnoreSpecificDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -122,6 +125,7 @@
       <AdditionalLibraryDirectories>$(SolutionDir)\Dependencies\SDL2-2.0.6\lib\x86\;$(SolutionDir)Dependencies\glew-2.1.0\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;OpenGL32.lib;glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Windows</SubSystem>
+      <IgnoreSpecificDefaultLibraries>libcmt</IgnoreSpecificDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

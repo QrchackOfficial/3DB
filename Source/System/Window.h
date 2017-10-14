@@ -7,7 +7,7 @@
 class Window {
 private:
 	SDL_Window* window = nullptr;
-	SDL_GLContext context = nullptr;
+	SDL_GLContext ctx = nullptr;
 	float bgColor[3] = {0.0f, 0.0f, 0.2f};
 
 	// Window settings
@@ -28,6 +28,12 @@ private:
 	glm::mat4 View;
 	glm::mat4 Projection;
 	glm::mat4 MVP;
+
+
+	void setupOpenGL();
+	SDL_GLContext getContext();
+	SDL_Window* Window::createWindow(char* title, int width, int height);
+	void resetSeed();
 
 public:
 	static const int center = SDL_WINDOWPOS_CENTERED;
