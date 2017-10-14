@@ -173,7 +173,7 @@ Window::Window() {
 	glGenVertexArrays(1, &VertexArrayID);
 	glBindVertexArray(VertexArrayID);
 
-	Texture = loadBMP("texture.bmp");
+	Texture = loadBMP("textures\\texture.bmp");
 	TextureID = glGetUniformLocation(programID, "inTexture");
 
 	// Generate and select vertex buffer
