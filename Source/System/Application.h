@@ -8,7 +8,6 @@ private:
 	bool running = true;
 	Window* w;
 	SDL_Event eventPending;
-	Log* log;
 public:
 	void kill() {
 		running = false;
@@ -17,7 +16,7 @@ public:
 	void handleEvents(float dt);
 	void drawFrame(float dt) const;
 	void update(float dt);
-	Application();
+	Application(Log& log);
 	~Application();
 };
 

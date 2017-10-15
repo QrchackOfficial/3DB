@@ -41,8 +41,8 @@ private:
 	float vAngle = 0.0f;
 	float hAngleN;
 	float vAngleN;
-	float vAngleMax = 3.14f / 8;
-	float vAngleMin = -vAngleMax;
+	float vAngleMax = 3.14f/3;
+	float vAngleMin = -3.14f/3;
 	float FoV = 45.0f;
 	float cameraSpeed = 0.1f;
 	float mouseSpeed = 0.0005f;

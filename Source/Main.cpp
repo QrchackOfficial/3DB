@@ -4,6 +4,7 @@
 #include <SDL.h>
 
 int main(int argc, char* argv[]) {
-	Application();
+	Log l("debuglog.txt", true);
+	Application _3DBApp = Application(l);
 	return 0;
 }

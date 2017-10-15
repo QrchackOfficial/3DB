@@ -35,12 +35,13 @@ void Window::redraw(float dt) {
 		hAngleN = hAngle + mouseSpeed * dt * float(width / 2 - mouseX);
 		vAngleN = vAngle + mouseSpeed * dt * float(height / 2 - mouseY);
 
-		//sprintf(debugOut, "vAngle = %.2f\n", vAngle);
-		//OutputDebugString(debugOut);
+		sprintf(debugOut, "vAngle = %.2f\n", vAngle);
+		OutputDebugString(debugOut);
 
 		if (vAngleN >= vAngleMin && vAngleN <= vAngleMax) {
 			vAngle = vAngleN;
 		}
+		hAngle = hAngleN;
 	}
 
 	direction = vec3(
