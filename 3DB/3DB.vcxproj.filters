@@ -22,54 +22,26 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Source\Main.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Source\System\Application.cpp">
-      <Filter>Source\System</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Source\System\Window.cpp">
-      <Filter>Source\System</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Source\System\Log.cpp">
-      <Filter>Source\System</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Source\OpenGL\LoadShader.cpp">
-      <Filter>Source\OpenGL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Source\OpenGL\Model.cpp">
-      <Filter>Source\OpenGL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Source\System\Loaders\LoadBMP.cpp">
-      <Filter>Source\System\Loaders</Filter>
-    </ClCompile>
+    <ClCompile Include="Source\Main.cpp" />
+    <ClCompile Include="Source\OpenGL\LoadShader.cpp" />
+    <ClCompile Include="Source\OpenGL\Model.cpp" />
+    <ClCompile Include="Source\System\Application.cpp" />
+    <ClCompile Include="Source\System\Log.cpp" />
+    <ClCompile Include="Source\System\Window.cpp" />
+    <ClCompile Include="Source\System\Loaders\LoadBMP.cpp" />
+    <ClCompile Include="Source\System\Loaders\LoadOBJ.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Source\System\Application.h">
-      <Filter>Source\System</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\System\Window.h">
-      <Filter>Source\System</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\System\Log.h">
-      <Filter>Source\System</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\OpenGL\Model.hpp">
-      <Filter>Source\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\System\Loaders\LoadBMP.hpp">
-      <Filter>Source\System\Loaders</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\OpenGL\LoadShader.hpp">
-      <Filter>Source\OpenGL</Filter>
-    </ClInclude>
+    <ClInclude Include="Source\OpenGL\LoadShader.hpp" />
+    <ClInclude Include="Source\OpenGL\Model.hpp" />
+    <ClInclude Include="Source\System\Application.h" />
+    <ClInclude Include="Source\System\Log.h" />
+    <ClInclude Include="Source\System\Window.h" />
+    <ClInclude Include="Source\System\Loaders\LoadBMP.hpp" />
+    <ClInclude Include="Source\System\Loaders\LoadOBJ.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Source\Shaders\FragmentShader.glsl">
-      <Filter>Source\Shaders</Filter>
-    </None>
-    <None Include="..\Source\Shaders\VertexShader.glsl">
-      <Filter>Source\Shaders</Filter>
-    </None>
+    <None Include="Source\Shaders\FragmentShader.glsl" />
+    <None Include="Source\Shaders\VertexShader.glsl" />
   </ItemGroup>
 </Project>

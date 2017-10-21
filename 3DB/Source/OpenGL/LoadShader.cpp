@@ -6,6 +6,8 @@
 #include <vector>
 #include <string>
 
+
+#define GLEW_STATIC
 #include <GL/glew.h>
 
 GLuint loadShader(const char* vertex_file_path, const char* fragment_file_path) {

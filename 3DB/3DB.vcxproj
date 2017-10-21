@@ -19,25 +19,27 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Source\Main.cpp" />
-    <ClCompile Include="..\Source\OpenGL\LoadShader.cpp" />
-    <ClCompile Include="..\Source\OpenGL\Model.cpp" />
-    <ClCompile Include="..\Source\System\Application.cpp" />
-    <ClCompile Include="..\Source\System\Loaders\LoadBMP.cpp" />
-    <ClCompile Include="..\Source\System\Log.cpp" />
-    <ClCompile Include="..\Source\System\Window.cpp" />
+    <ClCompile Include="Source\System\Loaders\LoadBMP.cpp" />
+    <ClCompile Include="Source\Main.cpp" />
+    <ClCompile Include="Source\OpenGL\LoadShader.cpp" />
+    <ClCompile Include="Source\OpenGL\Model.cpp" />
+    <ClCompile Include="Source\System\Application.cpp" />
+    <ClCompile Include="Source\System\Loaders\LoadOBJ.cpp" />
+    <ClCompile Include="Source\System\Log.cpp" />
+    <ClCompile Include="Source\System\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Source\OpenGL\LoadShader.hpp" />
-    <ClInclude Include="..\Source\OpenGL\Model.hpp" />
-    <ClInclude Include="..\Source\System\Application.h" />
-    <ClInclude Include="..\Source\System\Loaders\LoadBMP.hpp" />
-    <ClInclude Include="..\Source\System\Log.h" />
-    <ClInclude Include="..\Source\System\Window.h" />
+    <ClInclude Include="Source\System\Loaders\LoadBMP.hpp" />
+    <ClInclude Include="Source\OpenGL\LoadShader.hpp" />
+    <ClInclude Include="Source\OpenGL\Model.hpp" />
+    <ClInclude Include="Source\System\Application.h" />
+    <ClInclude Include="Source\System\Loaders\LoadOBJ.hpp" />
+    <ClInclude Include="Source\System\Log.h" />
+    <ClInclude Include="Source\System\Window.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Source\Shaders\FragmentShader.glsl" />
-    <None Include="..\Source\Shaders\VertexShader.glsl" />
+    <None Include="Source\Shaders\FragmentShader.glsl" />
+    <None Include="Source\Shaders\VertexShader.glsl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

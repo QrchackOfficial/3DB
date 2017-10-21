@@ -171,8 +171,8 @@ Window::Window() {
 	ctx = getContext();
 
 	programID = loadShader(
-		"..\\Source\\Shaders\\VertexShader.glsl",
-		"..\\Source\\Shaders\\FragmentShader.glsl"
+		"..\\3DB\\Source\\Shaders\\VertexShader.glsl",
+		"..\\3DB\\Source\\Shaders\\FragmentShader.glsl"
 	);
 
 	Model mCube{};
